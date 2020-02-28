@@ -1,0 +1,25 @@
+{
+  "name": "Employee-Tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "employeeItems.js",
+  "dependencies": {
+    "init": "^0.1.2",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liliko84/Employee-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liliko84/Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/liliko84/Employee-Tracker#readme"
+}
