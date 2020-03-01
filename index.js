@@ -2,10 +2,10 @@ const inquirer = require('inquirer');
 require('console.table');
 
 // import connection
-const connection = require('../config/connection');
+const connection = require('./config/connection');
 
 // import functions to work with database
-const { getAllEmployee, newEmployee, updateEmployee } = require('./js/');
+const { getAllEmployee, newEmployee, updateEmployee } = require('./js/db_functions');
 
 // import arrays of questions for inquirer prompts
 const  startQuestions = require('./js/questions');
