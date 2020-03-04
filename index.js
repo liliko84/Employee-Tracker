@@ -1,67 +1,65 @@
 const inquirer = require('inquirer');
 require('console.table');
-
-// import connection
-const connection = require('./config/connection');
+const connection = require('./config/connection')
 
 // import functions to work with database
-const{ getAllEmployees, createEmployee, deleteEmployee, updateEmployeeRole, updateEmployeeManager,
-  getAllRoles, createRole, deleteRole, updateRoleSalary, updateRoleDepartment,
-  getAllDepartments, createDepartment, deleteDepartment, updateDepartment,
-  getEmployeesByManager, getDepartmentBudget, getAllManagers
-} = require('./js/db_functions');
+const js = require('./js/db_functions');
 
 // import arrays of questions for inquirer prompts
-const  startQuestions = require('./js/questions');
+const q = require('./js/questions');
+
+
+
 
 // function to start auction, defined to be async
 const startApp = async () => {
   // destructure response object out of first prompt, using await means no .then() needed
-  const { userAction } = await inquirer.prompt(startQuestions);
+  const {
+    EmployeeAction
+  } = await inquirer.prompt(q.startQuestions);
 
   // depending on the answer, do an action
-  if (userAction.EmployeeAction === 'Review all Employees') {
-    getAllEmps();
-} else if (userAction.EmployeeAction === 'Create a new Employee') {
+  if (EmployeeAction === 'Review all Employees') {
+    getAllEmployees();
+  } else if (EmployeeAction === 'Create a new Employee') {
     postNewEmp();
-} else if (userAction.EmployeeAction === 'Update an Employee') {
+  } else if (EmployeeAction === 'Update an Employee') {
     //console.log("inside upd question");
     updateEmp();
-} else if (userAction.EmployeeAction === 'Delete an Employee') {
+  } else if (EmployeeAction === 'Delete an Employee') {
     deleteEmp();
-} else if (userAction.EmployeeAction === 'View Employees By Manager') {
+  } else if (EmployeeAction === 'View Employees By Manager') {
     //console.log("inside upd question");
     getEmpByMgr();
-} else if (userAction.EmployeeAction === 'Review Departments Budget') {
-   getDeptBudget();
-}else if (userAction.EmployeeAction === 'Review all Roles') {
+  } else if (EmployeeAction === 'Review Departments Budget') {
+    getDeptBudget();
+  } else if (EmployeeAction === 'Review all Roles') {
     getAllRol();
-} else if (userAction.EmployeeAction === 'Create a new Role') {
+  } else if (EmployeeAction === 'Create a new Role') {
     postNewRol();
-} else if (userAction.EmployeeAction === 'Update an Role') {
+  } else if (EmployeeAction === 'Update an Role') {
     //console.log("inside upd question");
     updateRol();
-} else if (userAction.EmployeeAction === 'Delete an Role') {
+  } else if (EmployeeAction === 'Delete an Role') {
     deleteRol();
-}else if (userAction.EmployeeAction === 'Review all Departments') {
+  } else if (EmployeeAction === 'Review all Departments') {
     getAllDept();
-} else if (userAction.EmployeeAction === 'Create a new Department') {
+  } else if (EmployeeAction === 'Create a new Department') {
     postNewDept();
-} else if (userAction.EmployeeAction === 'Update an Department') {
-   
+  } else if (EmployeeAction === 'Update an Department') {
     updateDept();
-} else if (userAction.EmployeeAction === 'Delete an Department') {
+  } else if (EmployeeAction === 'Delete an Department') {
     deleteDept();
-} else if (userAction.EmployeeAction === 'Exit') {
-  // console.log("inside exit");
-  connection.end();
-}
+  } else if (EmployeeAction === 'Exit') {
+    // console.log("inside exit");
+    connection.end();
+  }
 };
 // function to create a new auction item, defined to be async
-/* const getAllEmployees = async () => {
+const getAllEmployees = async () => {
 
   console.log("getAllEmployees");
-  const employees = await getAllEmployees();
+  const employees = await js.getAllEmployees();
 
   // print all of the items
   console.table(employees);
@@ -69,91 +67,103 @@ const startApp = async () => {
 
   return startApp();
 };
- */
+
+const postNewEmp = async () => {
+  const answers = await inquirer.prompt(q.createEmployeeQuestions)
+
+  const result = await js.createEmployee(answers)
+  console.log(result)
+
+  return startApp();
+}
 /* connection.connect(err => {
   if (err) throw err;
   console.log('Connected to DB');
   startApp();
 }); */
 const postNewDept = async () => {
-  
-    const { name } = await inquirer.prompt(createDepartmentQuestions);
 
-    // create new Department
-    const createDepartmentRes = await createDepartment({ name });
+  const answers = await inquirer.prompt(q.createDepartmentQuestions);
 
-    console.log(createDepartmentRes);
-    return startApp();
+  // create new Department
+  const createDepartmentRes = await js.createDepartment(answers);
+
+  console.log(createDepartmentRes);
+  return startApp();
 };
+
+const getAllDept = () => {
+  console.log("BUILD GET DEPARTMENT FUNCTION")
+
+  return startApp();
+}
 
 // function to delete an Department
 const deleteDept = async () => {
 
-    const Departments = await getAllDepartments();
+  const Departments = await js.getAllDepartments();
 
-    
-    console.table(Departments);
 
-    // enter Department id to be deleted
-    const { id } = await inquirer.prompt(deleteDepartmentQuestions);
+  console.table(Departments);
 
-    await deleteDepartment(id);
+  // enter Department id to be deleted
+  const {
+    id
+  } = await inquirer.prompt(deleteDepartmentQuestions);
 
-    return startApp();
+  await js.deleteDepartment(id);
+
+  return startApp();
 };
 
 // // function to update an Department
 const updateDept = async () => {
 
-        const Departments = await getAllDepartments();
+  const Departments = await js.getAllDepartments();
 
-    // print all of the items
-    console.table(Departments);
+  // print all of the items
+  console.table(Departments);
 
-    // enter Department id to be deleted
-    const { id, name} = await inquirer.prompt(updateDepartmentQuestions);
+  // enter Department id to be deleted
+  const {
+    id,
+    name
+  } = await inquirer.prompt(updateDepartmentQuestions);
 
-    const updateDepartmentRes = await updateDepartment(id, name);
-    
-    return startApp();
+  const updateDepartmentRes = await js.updateDepartment(id, name);
+
+  return startApp();
 };
-
-
 
 const getEmpByMgr = async () => {
 
 
-    const Mgrs = await getAllManagers();
+  const Mgrs = await js.getAllManagers();
 
-    console.table(Mgrs);
-
-
-    const { id } = await inquirer.prompt(selectManagerQuestion);
+  console.table(Mgrs);
 
 
-    const employees = await getEmployeesByManager(id);
+  const {
+    id
+  } = await inquirer.prompt(selectManagerQuestion);
 
-   
-    console.table(employees);
 
-    return startApp();
+  const employees = await js.getEmployeesByManager(id);
+
+
+  console.table(employees);
+
+  return startApp();
 };
 
 const getDeptBudget = async () => {
 
-    const budget = await getDepartmentBudget();
+  const budget = await js.getDepartmentBudget();
 
-    console.log("Department's budget is: ",);
-    budget.forEach(element => console.log(element.name, " ", element.Budget));
-    
-    return startApp();
+  console.log("Department's budget is: ", );
+  budget.forEach(element => console.log(element.name, " ", element.Budget));
+
+  return startApp();
 };
-    
-         
 
-connection.connect(err => {
-    if (err) throw err;
-    console.log('Connected to DB');
-    startApp();
-});
-
+startApp();

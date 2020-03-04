@@ -1,18 +1,44 @@
-const startQuestions = [
-  {
-    name: 'EmployeeAction',
-    message: 'What would you like to do?',
-    type: 'list',
-    choices: [{ name: 'Review all Employees' }, { name: 'Create a new Employee' }, { name: 'Update an Employee' }, { name: 'Delete an Employee' },
-    { name: 'View Employees By Manager' },
-    { name: 'Review all Roles' }, { name: 'Create a new Role' }, { name: 'Update an Role' }, { name: 'Delete an Role' },
-    { name: 'Review all Departments' }, { name: 'Create a new Department' }, { name: 'Update an Department' }, { name: 'Delete an Department' },
-    { name: 'Exit' }]
-  }
-];
+const startQuestions = [{
+  name: 'EmployeeAction',
+  message: 'What would you like to do?',
+  type: 'list',
+  choices: [{
+      name: 'Review all Employees'
+    }, {
+      name: 'Create a new Employee'
+    }, {
+      name: 'Update an Employee'
+    }, {
+      name: 'Delete an Employee'
+    },
+    {
+      name: 'View Employees By Manager'
+    },
+    {
+      name: 'Review all Roles'
+    }, {
+      name: 'Create a new Role'
+    }, {
+      name: 'Update an Role'
+    }, {
+      name: 'Delete an Role'
+    },
+    {
+      name: 'Review all Departments'
+    }, {
+      name: 'Create a new Department'
+    }, {
+      name: 'Update an Department'
+    }, {
+      name: 'Delete an Department'
+    },
+    {
+      name: 'Exit'
+    }
+  ]
+}];
 
-const createEmployeeQuestions = [
-  {
+const createEmployeeQuestions = [{
     name: 'first_name',
     message: 'What is the first name of the Employee?',
     type: 'input',
@@ -44,20 +70,17 @@ const createEmployeeQuestions = [
 
 
 // questions to delete an employee
-const deleteEmployeeQuestions = [
-  {
-    name: 'id',
-    message: "Which employee do you want to delete (enter employee's id)?",
-    type: 'input',
-    validate: inputVal => {
-      return inputVal > 0 && !isNaN(inputVal) ? true : false;
-    }
+const deleteEmployeeQuestions = [{
+  name: 'id',
+  message: "Which employee do you want to delete (enter employee's id)?",
+  type: 'input',
+  validate: inputVal => {
+    return inputVal > 0 && !isNaN(inputVal) ? true : false;
   }
-];
+}];
 
 // questions to update an employee
-const updateEmployeeQuestions = [
-  {
+const updateEmployeeQuestions = [{
     name: 'id',
     message: "Which employee do you want to update (enter employee's id)?",
     type: 'input',
@@ -69,7 +92,13 @@ const updateEmployeeQuestions = [
     name: 'updateAction',
     message: 'What would you like to update',
     type: 'list',
-    choices: [{ name: 'Employee Role ID' }, { name: 'Employee Manager ID' }, { name: 'Exit' }]
+    choices: [{
+      name: 'Employee Role ID'
+    }, {
+      name: 'Employee Manager ID'
+    }, {
+      name: 'Exit'
+    }]
   },
   {
     name: 'new_id',
@@ -82,8 +111,7 @@ const updateEmployeeQuestions = [
 ];
 
 // questions for creating an role prompt
-const createRoleQuestions = [
-  {
+const createRoleQuestions = [{
     name: 'title',
     message: 'What is the title of the Role?',
     type: 'input',
@@ -105,21 +133,19 @@ const createRoleQuestions = [
   }
 ];
 
+
 // questions to delete an role
-const deleteRoleQuestions = [
-  {
-    name: 'id',
-    message: "Which role do you want to delete (enter role's id)?",
-    type: 'input',
-    validate: inputVal => {
-      return inputVal > 0 && !isNaN(inputVal) ? true : false;
-    }
+const deleteRoleQuestions = [{
+  name: 'id',
+  message: "Which role do you want to delete (enter role's id)?",
+  type: 'input',
+  validate: inputVal => {
+    return inputVal > 0 && !isNaN(inputVal) ? true : false;
   }
-];
+}];
 
 // questions to update an role
-const updateRoleQuestions = [
-  {
+const updateRoleQuestions = [{
     name: 'id',
     message: "Which role do you want to update (enter role's id)?",
     type: 'input',
@@ -131,7 +157,13 @@ const updateRoleQuestions = [
     name: 'updateAction',
     message: 'What would you like to update',
     type: 'list',
-    choices: [{ name: 'Role salary' }, { name: 'Role Department ID' }, { name: 'Exit' }]
+    choices: [{
+      name: 'Role salary'
+    }, {
+      name: 'Role Department ID'
+    }, {
+      name: 'Exit'
+    }]
   },
   {
     name: 'new_val',
@@ -144,31 +176,26 @@ const updateRoleQuestions = [
 ];
 
 //questions for creating an Department prompt
-const createDepartmentQuestions = [
-  {
-    name: 'name',
-    message: 'What is the name of the Department?',
-    type: 'input',
+const createDepartmentQuestions = [{
+  name: 'name',
+  message: 'What is the name of the Department?',
+  type: 'input',
 
-    validate: inputVal => (inputVal ? true : false)
-  }
-];
+  validate: inputVal => (inputVal ? true : false)
+}];
 
 // questions to delete an Department
-const deleteDepartmentQuestions = [
-  {
-    name: 'id',
-    message: "Which Department do you want to delete (enter Department's id)?",
-    type: 'input',
-    validate: inputVal => {
-      return inputVal > 0 && !isNaN(inputVal) ? true : false;
-    }
+const deleteDepartmentQuestions = [{
+  name: 'id',
+  message: "Which Department do you want to delete (enter Department's id)?",
+  type: 'input',
+  validate: inputVal => {
+    return inputVal > 0 && !isNaN(inputVal) ? true : false;
   }
-];
+}];
 
 // questions to update an Department
-const updateDepartmentQuestions = [
-  {
+const updateDepartmentQuestions = [{
     name: 'id',
     message: "Which Department do you want to update (enter Department's id)?",
     type: 'input',
@@ -185,21 +212,25 @@ const updateDepartmentQuestions = [
 ];
 
 // questions to delete an employee
-const selectManagerQuestion = [
-  {
-    name: 'id',
-    message: "Select Manager to see Employees (enter employee's id)?",
-    type: 'input',
-    validate: inputVal => {
-      return inputVal > 0 && !isNaN(inputVal) ? true : false;
-    }
+const selectManagerQuestion = [{
+  name: 'id',
+  message: "Select Manager to see Employees (enter employee's id)?",
+  type: 'input',
+  validate: inputVal => {
+    return inputVal > 0 && !isNaN(inputVal) ? true : false;
   }
-];
+}];
 
 module.exports = {
-  startQuestions, createEmployeeQuestions, deleteEmployeeQuestions, updateEmployeeQuestions,
-  createRoleQuestions, deleteRoleQuestions, updateRoleQuestions,
-  createDepartmentQuestions, deleteDepartmentQuestions, updateDepartmentQuestions,
+  startQuestions,
+  createEmployeeQuestions,
+  deleteEmployeeQuestions,
+  updateEmployeeQuestions,
+  createRoleQuestions,
+  deleteRoleQuestions,
+  updateRoleQuestions,
+  createDepartmentQuestions,
+  deleteDepartmentQuestions,
+  updateDepartmentQuestions,
   selectManagerQuestion
-}; 
-
+};

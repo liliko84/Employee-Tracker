@@ -4,10 +4,10 @@ const consola = require('consola');
 const connection = require('../config/connection');
 
 // create a function that returns a promise to handle sql query to get all employess
-const getAllEmployees = () => {
+exports.getAllEmployees = () => {
   // creates a new "thenable" promise
   return new Promise((resolve, reject) => {
-    const getQuery = connection.query('SELECT * FROM employees', (err, employeeData) => {
+    connection.query('SELECT * FROM employee', (err, employeeData) => {
       if (err) {
         consola.error(err);
         reject(err);
@@ -16,27 +16,29 @@ const getAllEmployees = () => {
       resolve(employeeData);
     });
   });
-};   
+};
 
-const createEmployee = employeeDataObj => {
+exports.createEmployee = employeeDataObj => {
   return new Promise((resolve, reject) => {
 
-       const postQuery = connection.query('INSERT INTO employee SET ?', employeeDataObj, (err, createEmployeeRes) => {
+    const postQuery = connection.query('INSERT INTO employee SET ?', employeeDataObj, (err, createEmployeeRes) => {
       if (err) {
         consola.error(err);
         reject(err);
         return;
       }
-      resolve({ message: 'Employee successfully posted!' });
+      resolve({
+        message: 'Employee successfully posted!'
+      });
     });
     consola.info(postQuery.sql);
   });
 };
 
 
-const deleteEmployee = (Id) => {
+exports.deleteEmployee = (Id) => {
   return new Promise((resolve, reject) => {
-    
+
 
     const deleteQuery = connection.query(
       'DELETE FROM employee WHERE id = ?',
@@ -47,7 +49,9 @@ const deleteEmployee = (Id) => {
           reject(err);
           return;
         }
-        resolve({ message: 'Employee successfully deleted!' });
+        resolve({
+          message: 'Employee successfully deleted!'
+        });
       }
     );
 
@@ -56,7 +60,7 @@ const deleteEmployee = (Id) => {
 };
 
 // create a function that returns a promise to handle sql query to get all roles
-const getAllRoles = () => {
+exports.getAllRoles = () => {
   // creates a new "thenable" promise
   return new Promise((resolve, reject) => {
     const getQuery = connection.query('SELECT * FROM role', (err, roleData) => {
@@ -72,7 +76,7 @@ const getAllRoles = () => {
 };
 
 // create a function that accepts a new role'
-const createRole = roleDataObj => {
+exports.createRole = roleDataObj => {
   return new Promise((resolve, reject) => {
 
     const postQuery = connection.query('INSERT INTO role SET ?', roleDataObj, (err, createRoleRes) => {
@@ -81,16 +85,18 @@ const createRole = roleDataObj => {
         reject(err);
         return;
       }
-      resolve({ message: 'Role successfully posted!' });
+      resolve({
+        message: 'Role successfully posted!'
+      });
     });
     consola.info(postQuery.sql);
   });
 };
 
 // create a function that accepts the Role's id and delete the role
-const deleteRole = (Id) => {
+exports.deleteRole = (Id) => {
   return new Promise((resolve, reject) => {
-  
+
 
     const deleteQuery = connection.query(
       'DELETE FROM role WHERE id = ?',
@@ -101,7 +107,9 @@ const deleteRole = (Id) => {
           reject(err);
           return;
         }
-        resolve({ message: 'Role successfully deleted!' });
+        resolve({
+          message: 'Role successfully deleted!'
+        });
       }
     );
 
@@ -110,19 +118,25 @@ const deleteRole = (Id) => {
 };
 
 // create a function that accepts the Role's id and updates the role
-const updateRoleSalary = (Id, new_val) => {
+exports.updateRoleSalary = (Id, new_val) => {
   return new Promise((resolve, reject) => {
-    
+
     const updateQuery = connection.query(
       'UPDATE role SET ? WHERE ?',
-      [{ salary: new_val }, { id: Id }],
+      [{
+        salary: new_val
+      }, {
+        id: Id
+      }],
       (err, updateRes) => {
         if (err) {
           consola.error(err);
           reject(err);
           return;
         }
-        resolve({ message: 'Role Salary successfully Updated!' });
+        resolve({
+          message: 'Role Salary successfully Updated!'
+        });
       }
     );
 
@@ -131,19 +145,25 @@ const updateRoleSalary = (Id, new_val) => {
 };
 
 // create a function that accepts the Role's id and updates the role
-const updateRoleDepartment = (Id, new_val) => {
+exports.updateRoleDepartment = (Id, new_val) => {
   return new Promise((resolve, reject) => {
-    
+
     const updateQuery = connection.query(
       'UPDATE role SET ? WHERE ?',
-      [{ department_id: new_val }, { id: Id }],
+      [{
+        department_id: new_val
+      }, {
+        id: Id
+      }],
       (err, updateRes) => {
         if (err) {
           consola.error(err);
           reject(err);
           return;
         }
-        resolve({ message: 'Role department successfully Updated!' });
+        resolve({
+          message: 'Role department successfully Updated!'
+        });
       }
     );
 
@@ -154,7 +174,7 @@ const updateRoleDepartment = (Id, new_val) => {
 
 //department
 
-const getAllDepartments = () => {
+exports.getAllDepartments = () => {
   // creates a new "thenable" promise
   return new Promise((resolve, reject) => {
     const getQuery = connection.query('SELECT * FROM Department', (err, DepartmentData) => {
@@ -170,7 +190,7 @@ const getAllDepartments = () => {
 };
 
 // function that accepts a new Department's information 
-const createDepartment = DepartmentDataObj => {
+exports.createDepartment = DepartmentDataObj => {
   return new Promise((resolve, reject) => {
     const postQuery = connection.query('INSERT INTO Department SET ?', DepartmentDataObj, (err, createDepartmentRes) => {
       if (err) {
@@ -178,14 +198,16 @@ const createDepartment = DepartmentDataObj => {
         reject(err);
         return;
       }
-      resolve({ message: 'Department successfully posted!' });
+      resolve({
+        message: 'Department successfully posted!'
+      });
     });
     consola.info(postQuery.sql);
   });
 };
 
 //function that accepts the Department's id and delete the Department
-const deleteDepartment = (Id) => {
+exports.deleteDepartment = (Id) => {
   return new Promise((resolve, reject) => {
     const deleteQuery = connection.query(
       'DELETE FROM Department WHERE id = ?',
@@ -196,7 +218,9 @@ const deleteDepartment = (Id) => {
           reject(err);
           return;
         }
-        resolve({ message: 'Department successfully deleted!' });
+        resolve({
+          message: 'Department successfully deleted!'
+        });
       }
     );
 
@@ -205,18 +229,24 @@ const deleteDepartment = (Id) => {
 };
 
 //function that accepts the Department's id and updates the Department
-const updateDepartment = (Id, name) => {
+exports.updateDepartment = (Id, name) => {
   return new Promise((resolve, reject) => {
-        const updateQuery = connection.query(
+    const updateQuery = connection.query(
       'UPDATE Department SET ? WHERE ?',
-      [{ name: name }, { id: Id }],
+      [{
+        name: name
+      }, {
+        id: Id
+      }],
       (err, updateRes) => {
         if (err) {
           consola.error(err);
           reject(err);
           return;
         }
-        resolve({ message: 'Department title successfully Updated!' });
+        resolve({
+          message: 'Department title successfully Updated!'
+        });
       }
     );
 
@@ -242,7 +272,7 @@ const updateDepartment = (Id, name) => {
 };
  */
 
-const getEmployeesByManager = (id) => {
+exports.getEmployeesByManager = (id) => {
   // creates a new "thenable" promise
   return new Promise((resolve, reject) => {
     const getQuery = connection.query('SELECT * FROM employee WHERE id != manager_id and manager_id = ?', id, (err, employeeData) => {
@@ -255,10 +285,3 @@ const getEmployeesByManager = (id) => {
     });
   });
 };
-
-module.exports = {getAllEmployees, createEmployee, deleteEmployee, updateEmployeeRole, updateEmployeeManager, 
-  getAllRoles, createRole, deleteRole, updateRoleSalary, updateRoleDepartment,
-  getAllDepartments, createDepartment, deleteDepartment, updateDepartment,
-  getEmployeesByManager, getDepartmentBudget,/*  getAllManagers */
-};
-
