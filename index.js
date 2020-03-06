@@ -9,8 +9,6 @@ const js = require('./js/db_functions');
 const q = require('./js/questions');
 
 
-
-
 // function to start auction, defined to be async
 const startApp = async () => {
   // destructure response object out of first prompt, using await means no .then() needed
@@ -92,7 +90,9 @@ const postNewDept = async () => {
   return startApp();
 };
 
-const getAllDept = () => {
+const getAllDept = async () => {
+  const answers = await inquirer.prompt(q.getAllDepartments);
+  const getAllDepartments = await js.getAllDepartments()
   console.log("BUILD GET DEPARTMENT FUNCTION")
 
   return startApp();
@@ -143,7 +143,7 @@ const getEmpByMgr = async () => {
   console.table(Mgrs);
 
 
-  const {
+   const {
     id
   } = await inquirer.prompt(selectManagerQuestion);
 
@@ -151,7 +151,7 @@ const getEmpByMgr = async () => {
   const employees = await js.getEmployeesByManager(id);
 
 
-  console.table(employees);
+  console.table(employees); 
 
   return startApp();
 };
